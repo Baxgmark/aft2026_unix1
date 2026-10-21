@@ -2,20 +2,20 @@
 </script>
 
 <template>
-    <div>
+    <div class=" min-h-screen flex flex-col items-center   w-full justify-center p-10 ">
         <div>
             <h1>Login</h1>
         </div>
-        <form>
+        <form @submit.prevent="handlelogin()" class="w-70 items-center justify-center ">
             <div>
                 <h1>ชื่อผู้ใช้งาน</h1>
-                        <input placeholder="ตั้งชื่อผู้ใช้งาน..." type="text" class="" />
+                        <input class="border rounded-xl w-full  p-2" v-model="username" placeholder="ตั้งชื่อผู้ใช้งาน..." type="text"/>
             </div>
             <div>
                 <h1>รหัสผ่าน</h1>
-                        <input placeholder="ตั้งรหัสผ่าน..." type="password" class="" />
-            </div>
-            <button>เข้าสู่ระบบ</button>
+                        <input class="border rounded-xl w-full  p-2" v-model="password" placeholder="ตั้งรหัสผ่าน..." type="password" />
+            </div><br/>
+            <button class=" border hover:bg-blue-500 text-white bg-blue-600 rounded-xl p-2 w-full ">เข้าสู่ระบบ</button>
         </form>
     </div>
 </template>

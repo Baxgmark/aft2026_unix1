@@ -1,28 +1,28 @@
 
 
 <template>
-    <div>
+    <div class="min-h-screen flex flex-col items-center   w-full justify-center p-10">
         <div>
             <h1>Register</h1>
         </div>
-        <form>
-            <div>
+ <form @submit.prevent="handleregister()" class="w-70 items-center justify-center ">
+                <div>
                 <h1>ชื่อผู้ใช้งาน</h1>
-                        <input placeholder="ตั้งชื่อผู้ใช้งาน..." type="text" class="" />
+                        <input class="border rounded-xl w-full" v-model=" username" placeholder="ตั้งชื่อผู้ใช้งาน..." type="text" />
             </div>
             <div>
                 <h1>ชื่อจริง</h1>
-                        <input placeholder="ชื่อจริง..." type="text" class="" />
+                        <input class="border rounded-xl w-full" v-model="firstname" placeholder="ชื่อจริง..." type="text" />
             </div>
             <div>
                 <h1>นามสกุล</h1>
-                        <input placeholder="นามสกุล..." type="text" class="" />
+                        <input class="border rounded-xl w-full" v-model="lastname" placeholder="นามสกุล..." type="text" />
             </div>
             <div>
                 <h1>รหัสผ่าน</h1>
-                        <input placeholder="ตั้งรหัสผ่าน..." type="password" class="" />
+                        <input class="border rounded-xl w-full" v-model="password" placeholder="ตั้งรหัสผ่าน..." type="password" />
             </div>
-            <button>สมัคร</button>
+            <button class=" border hover:bg-blue-500 text-white bg-blue-600 rounded-xl p-2 w-full " >สมัคร</button>
         </form>
     </div>
 </template>
@@ -50,18 +50,19 @@ const handleregister = async () => {
 
     if(!username.value || !password.value || !firstname.value || !lastname.value){
         Swal.fire({
-            icon:'warning'
+            icon:'warning',
             title:'กรุณากรอกข้อมูลให้ครบถ้วน'
         })
         return;
     }
     try{
         const res = await axios.post(`${import.meta.env.VITE_API}/api/register`,{
-            username: username.value
+            username: username.value,
             firstname: firstname.value,
             lastname: lastname.value,
             password: password.value
         })
+
 
         if(res.data.success){
             Swal.fire({
