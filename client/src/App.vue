@@ -3,6 +3,6 @@
 
 <template>
   <div>
-    <div className="text-6xl text-green-500">Hello บัง!</div>
-  </div>
+    <router-view />
+</div>
 </template>
