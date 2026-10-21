@@ -13,6 +13,10 @@ const getdata = async () => {
     try{
         const res = await async(`${import.meta.env.VITE_API}/api/getuser`)
         const groups = {}
+
+        for (const item of res.data.data || []){
+            
+        }
     }
 }
 </script>
