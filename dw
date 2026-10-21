@@ -1,3 +1,0 @@
-<script setup>
-axios.interceptor.request.use()
-    </script>
