@@ -11,29 +11,4 @@ axios.interceptors.request.use((config)=>{
 
     return config;
 })
-axios.interceptors.request.use((config)=>{
-    const token = localStorage.getItem('authtoken')
-    
-    if(config){
-    config.headers.Authorization = `Bearer ${token}`
-
-    return config;
-    }
-})
-axios.interceptors.request.use((config)=>{
-    const token = localStorage.getItem('authtoken')
-    if(config){
-        config.headers.Authorization = `Bearer ${token}`
-
-        return config;
-    }
-})
-axios.interceptors.request.use((config)=>{
-    const token = localStorage.getItem('authtoken')
-    if(config){
-        config.headers.Authorization = `Bearer ${token}`
-
-        return config;
-    }
-})
 createApp(App).mount('#app')
