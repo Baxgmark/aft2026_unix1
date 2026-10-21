@@ -68,9 +68,9 @@ const handlelogin = async () => {
     })
 
     switch(decoded.role){
-      case 'user': router.push('/'); break;
-      case 'officer': router.push('/'); break;
-      case 'boss': router.push('/'); break;
+      case 'user': router.push('/user'); break;
+      case 'officer': router.push('/officer'); break;
+      case 'boss': router.push('/boss'); break;
     }
   } catch(e){
      console.error(e)     

@@ -20,3 +20,11 @@ const getdata = async () => {
     }
 }
 </script>
+
+<template>
+    <div>
+        <h1>
+            userview
+        </h1>
+    </div>
+    </template>

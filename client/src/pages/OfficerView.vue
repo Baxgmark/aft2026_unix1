@@ -62,3 +62,11 @@ const submit = async () => {
     }
 }
 </script>
+
+<template>
+    <div>
+        <h1>
+            officer view
+        </h1>
+    </div>
+    </template>
