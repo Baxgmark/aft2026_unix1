@@ -18,7 +18,14 @@
                 <h1>นามสกุล</h1>
                         <input class="border rounded-xl w-full" v-model="lastname" placeholder="นามสกุล..." type="text" />
             </div>
-
+            <div>
+                <h1>ตำแหน่ง</h1>
+                        <input class="border rounded-xl w-full" v-model="position" placeholder="ตำแหน่ง..." type="text" />
+            </div>
+            <div>
+                <h1>ผแนก</h1>
+                        <input class="border rounded-xl w-full" v-model="department" placeholder="ผแนก..." type="text" />
+            </div>
             <div>
                 <h1>รหัสผ่าน</h1>
                         <input class="border rounded-xl w-full" v-model="password" placeholder="ตั้งรหัสผ่าน..." type="password" />
@@ -39,6 +46,8 @@ const username = ref('')
 const firstname = ref('')
 const lastname = ref('')
 const password = ref('')
+const department = ref('')
+const position =ref('')
 
 const handleregister = async () => {
     Swal.fire({
@@ -61,7 +70,9 @@ const handleregister = async () => {
             username: username.value,
             firstname: firstname.value,
             lastname: lastname.value,
-            password: password.value
+            password: password.value,
+            department: department.value,
+            position: position.value
         })
 
 
