@@ -18,6 +18,7 @@
                 <h1>นามสกุล</h1>
                         <input class="border rounded-xl w-full" v-model="lastname" placeholder="นามสกุล..." type="text" />
             </div>
+
             <div>
                 <h1>รหัสผ่าน</h1>
                         <input class="border rounded-xl w-full" v-model="password" placeholder="ตั้งรหัสผ่าน..." type="password" />
