@@ -16,8 +16,8 @@ import Swal from 'sweetalert2'
 
 const topics = ref([])
 const types = ref([
-    {id:'rating',label:'1-4 คะแนน'},
-    {id:'boolean',label:'ผ่าน / ไม่ผ่าน'}
+    {id:'1',label:'1-4 คะแนน'},
+    {id:'2',label:'ผ่าน / ไม่ผ่าน'}
 ])
 
 const createtopic = () => ({
@@ -30,7 +30,7 @@ const createtopic = () => ({
 
 const createquiz = () => ({
     text: '',
-    type: 'rating'
+    type: '1'
 })
 
 const addtopic = () => {

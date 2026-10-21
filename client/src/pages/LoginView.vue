@@ -55,10 +55,9 @@ const handlelogin = async () => {
       password: password.value
     })
 
-    const token = res.data.token
     if(res.data.success){
-      localStorage.setItem('authtoken', token)
-      const decoded = jwtDecode(token);
+      localStorage.setItem('authtoken', res.data.token)
+      const decoded = jwtDecode(res.data.token);
     }
 
     Swal.fire({
