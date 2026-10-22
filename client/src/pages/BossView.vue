@@ -8,7 +8,7 @@ const rows = ref([]) // boss_answers ที่กรรมการคนนี�
 
 const getdata = async () => {
     try {
-        rows.value = (await api.get('/api/mywork')).data.message
+        rows.value = (await api.get('.....')).data.message
     } catch (e) {
         err(e)
     }
@@ -20,7 +20,7 @@ const submit = async () => {
     if (!(await ask('ยืนยันบันทึกคะแนนทั้งหมด?'))) return
     try {
         for (const r of rows.value) {
-            await api.put('/api/bossanswer', { id: r.id, score: r.score, reviews: r.reviews, sign: r.sign })
+            await api.put('......', { id: r.id, score: r.score, reviews: r.reviews, sign: r.sign })
         }
         ok('บันทึกคะแนนสำเร็จ')
         getdata()

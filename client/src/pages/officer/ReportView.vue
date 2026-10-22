@@ -9,7 +9,7 @@ const fileinput = ref(null)
 
 const getdata = async () => {
     try {
-        report.value = (await api.get('/api/report')).data.message
+        report.value = (await api.get('.....')).data.message
     } catch (e) {
         err(e)
     }

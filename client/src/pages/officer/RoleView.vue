@@ -14,7 +14,7 @@ const rows = ref([])
 
 const getdata = async () => {
     try {
-        rows.value = (await api.get('/api/all')).data.message
+        rows.value = (await api.get('.....')).data.message
     } catch (e) {
         err(e)
     }
@@ -23,7 +23,7 @@ onMounted(getdata)
 
 const save = async (r) => {
     try {
-        await api.put('/api/role', { id: r.id, role: r.role })
+        await api.put('.....', { id: r.id, role: r.role })
         ok('เปลี่ยนสิทธิ์สำเร็จ')
     } catch (e) {
         err(e)

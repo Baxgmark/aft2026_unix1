@@ -8,8 +8,8 @@ const { rows, form, add, edit, del } = useCrud('/api/selfanswer', {
     self_score: '',
     base_url: '',
 })
-const users = useList('/api/users')
-const topics = useList('/api/topic')
+const users = useList('....')
+const topics = useList('......')
 </script>
 
 <template>

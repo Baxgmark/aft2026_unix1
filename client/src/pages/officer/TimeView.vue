@@ -3,14 +3,12 @@ import { ref, onMounted } from 'vue'
 import Layout from '../../components/Layout.vue'
 import { api, ok, err, ask, thaiday, officermenu } from '../../lib'
 
-// ตาราง timetodo มีคอลัมน์เดียวคือ time (date) จึงเก็บได้แค่ "วันที่เปิดให้ประเมิน"
-// เป็นรายการวัน ไม่ได้แยกรายคน และไม่มี id เลยใช้ค่า time เป็นตัวอ้างอิงตอนลบ
 const rows = ref([])
 const time = ref('')
 
 const getdata = async () => {
     try {
-        rows.value = (await api.get('/api/timetodo')).data.message
+        rows.value = (await api.get('.....')).data.message
     } catch (e) {
         err(e)
     }
@@ -19,7 +17,7 @@ onMounted(getdata)
 
 const add = async () => {
     try {
-        await api.post('/api/timetodo', { time: time.value })
+        await api.post('......', { time: time.value })
         ok('เพิ่มวันที่สำเร็จ')
         time.value = ''
         getdata()
@@ -31,7 +29,7 @@ const add = async () => {
 const del = async (r) => {
     if (!(await ask('ยืนยันการลบวันที่นี้?'))) return
     try {
-        await api.delete('/api/timetodo', { params: { time: r.time } })
+        await api.delete('....', { params: { time: r.time } })
         ok('ลบสำเร็จ')
         getdata()
     } catch (e) {

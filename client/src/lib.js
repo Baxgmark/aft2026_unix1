@@ -4,9 +4,6 @@ import Swal from 'sweetalert2'
 import { jwtDecode } from 'jwt-decode'
 import router from './routes'
 
-// ใช้ api แทน axios ทุกที่ เรียกเป็น path สั้นๆ เช่น api.post('/api/login', {...})
-// vite.config.js จะ proxy /api ต่อไปที่ VITE_API ให้เอง (same-origin เลยไม่ติด CORS)
-// ถ้าอยากยิงตรงไม่ผ่าน proxy ใส่ baseURL: import.meta.env.VITE_API กลับเข้าไป
 export const api = axios.create({ timeout: 10000 })
 
 api.interceptors.request.use((config) => {

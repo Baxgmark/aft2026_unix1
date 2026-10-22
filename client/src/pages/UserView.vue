@@ -9,7 +9,7 @@ const rows = ref([]) // self_answer ของตัวเอง + ข้อม�
 
 const getdata = async () => {
     try {
-        const [me, self] = await Promise.all([api.get('/api/me'), api.get('/api/myself')])
+        const [me, self] = await Promise.all([api.get('....'), api.get('....')])
         profile.value = me.data.message
         rows.value = self.data.message
     } catch (e) {
@@ -22,7 +22,7 @@ onMounted(getdata)
 const submit = async () => {
     try {
         for (const r of rows.value) {
-            await api.put('/api/selfanswer', { id: r.id, self_score: r.self_score, base_url: r.base_url })
+            await api.put('.....', { id: r.id, self_score: r.self_score, base_url: r.base_url })
         }
         ok('บันทึกแบบประเมินสำเร็จ')
         getdata()

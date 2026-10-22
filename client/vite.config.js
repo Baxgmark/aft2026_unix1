@@ -9,8 +9,6 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [vue(), tailwindcss()],
 
-    // ทุก request ที่ขึ้นต้นด้วย /api จะถูกส่งต่อไปที่ VITE_API ให้อัตโนมัติ
-    // เบราว์เซอร์มองว่าเป็น origin เดียวกัน เลยไม่ติด CORS และไม่ต้องแก้อะไรฝั่ง backend
     server: {
       proxy: {
         '/api': {

@@ -8,7 +8,7 @@ const types = [
     { id: '2', label: 'ผ่าน / ไม่ผ่าน' },
 ]
 
-const { rows, form, add, edit, del } = useCrud('/api/topic')
+const { rows, form, add, edit, del } = useCrud('.....')
 </script>
 
 <template>

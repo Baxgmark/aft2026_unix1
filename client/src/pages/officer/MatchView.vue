@@ -2,17 +2,16 @@
 import Layout from '../../components/Layout.vue'
 import { useCrud, useList, officermenu, YEAR } from '../../lib'
 
-// จับคู่ = สร้างแถวว่างใน boss_answers (กรรมการค่อยมากรอกคะแนนเอง)
-// ตารางนี้มี topic_id ด้วย จึงกำหนดกรรมการแยกรายหัวข้อได้
+
 const { rows, form, add, edit, del } = useCrud('/api/bossanswer', {
     eyal_year: YEAR,
     score: '',
     reviews: '',
     sign: '',
 })
-const users = useList('/api/users')
-const bosses = useList('/api/bosses')
-const topics = useList('/api/topic')
+const users = useList('....')
+const bosses = useList('.....')
+const topics = useList('.....')
 </script>
 
 <template>
