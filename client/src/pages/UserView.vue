@@ -10,8 +10,8 @@ const rows = ref([]) // self_answer ของตัวเอง + ข้อม�
 const getdata = async () => {
     try {
         const [me, self] = await Promise.all([api.get('/api/me'), api.get('/api/myself')])
-        profile.value = me.data.data
-        rows.value = self.data.data
+        profile.value = me.data.message
+        rows.value = self.data.message
     } catch (e) {
         err(e)
     }

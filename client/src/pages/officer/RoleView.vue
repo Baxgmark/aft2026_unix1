@@ -14,7 +14,7 @@ const rows = ref([])
 
 const getdata = async () => {
     try {
-        rows.value = (await api.get('/api/all')).data.data
+        rows.value = (await api.get('/api/all')).data.message
     } catch (e) {
         err(e)
     }

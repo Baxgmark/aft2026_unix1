@@ -4,8 +4,10 @@ import Swal from 'sweetalert2'
 import { jwtDecode } from 'jwt-decode'
 import router from './routes'
 
-// ใช้ api แทน axios ทุกที่ ไม่ต้องพิมพ์ import.meta.env.VITE_API ซ้ำ
-export const api = axios.create({ baseURL: import.meta.env.VITE_API })
+// ใช้ api แทน axios ทุกที่ เรียกเป็น path สั้นๆ เช่น api.post('/api/login', {...})
+// vite.config.js จะ proxy /api ต่อไปที่ VITE_API ให้เอง (same-origin เลยไม่ติด CORS)
+// ถ้าอยากยิงตรงไม่ผ่าน proxy ใส่ baseURL: import.meta.env.VITE_API กลับเข้าไป
+export const api = axios.create({ timeout: 10000 })
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('authtoken')
@@ -24,7 +26,14 @@ api.interceptors.response.use(
 // ---- ตัวช่วย Swal สั้นๆ ----
 export const ok = (title) => Swal.fire({ icon: 'success', title, timer: 1500, showConfirmButton: false })
 export const warn = (title) => Swal.fire({ icon: 'warning', title })
-export const err = (e) => Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: e.response?.data?.message || e.message })
+// ถ้า backend ไม่ได้ส่ง message มา ให้โชว์ method + url + status จะได้รู้ว่าพังตรงไหน
+export const err = (e) =>
+    Swal.fire({
+        icon: 'error',
+        title: 'เกิดข้อผิดพลาด',
+        text: e.response?.data?.message ||
+            `${e.config?.method?.toUpperCase() || ''} ${e.config?.url || ''} → ${e.response?.status || e.message}`,
+    })
 export const ask = async (title) =>
     (await Swal.fire({ icon: 'question', title, showCancelButton: true, confirmButtonText: 'ตกลง', cancelButtonText: 'ยกเลิก' })).isConfirmed
 
@@ -59,7 +68,7 @@ export const useList = (url) => {
     const items = ref([])
     onMounted(async () => {
         try {
-            items.value = (await api.get(url)).data.data
+            items.value = (await api.get(url)).data.message
         } catch (e) {
             err(e)
         }
@@ -75,7 +84,7 @@ export const useCrud = (url, extra = {}) => {
 
     const load = async () => {
         try {
-            rows.value = (await api.get(url)).data.data
+            rows.value = (await api.get(url)).data.message
         } catch (e) {
             err(e)
         }

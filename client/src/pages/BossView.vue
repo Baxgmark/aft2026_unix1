@@ -8,7 +8,7 @@ const rows = ref([]) // boss_answers ที่กรรมการคนนี�
 
 const getdata = async () => {
     try {
-        rows.value = (await api.get('/api/mywork')).data.data
+        rows.value = (await api.get('/api/mywork')).data.message
     } catch (e) {
         err(e)
     }

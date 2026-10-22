@@ -10,7 +10,7 @@ const time = ref('')
 
 const getdata = async () => {
     try {
-        rows.value = (await api.get('/api/timetodo')).data.data
+        rows.value = (await api.get('/api/timetodo')).data.message
     } catch (e) {
         err(e)
     }

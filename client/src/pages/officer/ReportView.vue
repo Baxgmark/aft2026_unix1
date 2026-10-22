@@ -9,7 +9,7 @@ const fileinput = ref(null)
 
 const getdata = async () => {
     try {
-        report.value = (await api.get('/api/report')).data.data
+        report.value = (await api.get('/api/report')).data.message
     } catch (e) {
         err(e)
     }
@@ -27,7 +27,7 @@ const detail = () =>
 const backup = async () => {
     try {
         const res = await api.get('/api/backup')
-        const url = URL.createObjectURL(new Blob([JSON.stringify(res.data.data, null, 2)], { type: 'application/json' }))
+        const url = URL.createObjectURL(new Blob([JSON.stringify(res.data.message, null, 2)], { type: 'application/json' }))
         Object.assign(document.createElement('a'), { href: url, download: 'backup.json' }).click()
         ok('สำรองข้อมูลแล้ว')
     } catch (e) {
