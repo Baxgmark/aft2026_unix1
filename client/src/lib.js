@@ -73,15 +73,15 @@ export const useList = (url) => {
     return items
 }
 
-// ---- CRUD ครบชุดใน 1 บรรทัด: const { rows, form, add, edit, del } = useCrud('/api/topic') ----
-// extra = ค่าที่ต้องแนบไปด้วยทุกครั้งตอนเพิ่ม เช่น { eyal_year: YEAR }
-export const useCrud = (url, extra = {}) => {
+export const useCrud = (urls, extra = {}) => {
+    const u = typeof urls === 'string' ? { list: urls, add: urls, edit: urls, del: urls } : urls
+
     const rows = ref([])
     const form = ref({})
 
     const load = async () => {
         try {
-            rows.value = (await api.get(url)).data.message
+            rows.value = (await api.get(u.list)).data.message
         } catch (e) {
             err(e)
         }
@@ -89,7 +89,7 @@ export const useCrud = (url, extra = {}) => {
 
     const add = async () => {
         try {
-            await api.post(url, { ...extra, ...form.value })
+            await api.post(u.add, { ...extra, ...form.value })
             ok('เพิ่มข้อมูลสำเร็จ')
             form.value = {}
             load()
@@ -100,7 +100,7 @@ export const useCrud = (url, extra = {}) => {
 
     const edit = async (row) => {
         try {
-            await api.put(url, row)
+            await api.put(u.edit, row)
             ok('แก้ไขสำเร็จ')
             load()
         } catch (e) {
@@ -111,7 +111,7 @@ export const useCrud = (url, extra = {}) => {
     const del = async (row) => {
         if (!(await ask('ยืนยันการลบรายการนี้?'))) return
         try {
-            await api.delete(url, { params: { id: row.id } })
+            await api.delete(u.del, { params: { id: row.id } })
             ok('ลบสำเร็จ')
             load()
         } catch (e) {

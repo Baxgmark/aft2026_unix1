@@ -8,7 +8,10 @@ const types = [
     { id: '2', label: 'ผ่าน / ไม่ผ่าน' },
 ]
 
-const { rows, form, add, edit, del } = useCrud('.....')
+const { rows, form, add, edit, del } = useCrud({
+    add: 'api/addtopic',
+    list: 'api/alltopic'   
+})
 </script>
 
 <template>
@@ -23,6 +26,10 @@ const { rows, form, add, edit, del } = useCrud('.....')
             <div>
                 <p class="label">รายละเอียด</p>
                 <input class="inp" v-model="form.detail" placeholder="รายละเอียด..." />
+            </div>
+                        <div>
+                <p class="label">URL</p>
+                <input class="inp" v-model="form.base_url" type="text" placeholder="น้ำหนัก" />
             </div>
             <div>
                 <p class="label">น้ำหนัก</p>

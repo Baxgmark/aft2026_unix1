@@ -2,14 +2,13 @@
 import Layout from '../../components/Layout.vue'
 import { useCrud, useList, officermenu, YEAR } from '../../lib'
 
-// จับคู่ = สร้างแถวว่างใน self_answer (ผู้รับการประเมินค่อยมากรอกคะแนนเอง)
-const { rows, form, add, edit, del } = useCrud('/api/selfanswer', {
+const { rows, form, add, edit, del } = useCrud('/api/bind-topic', {
     eyal_year: YEAR,
     self_score: '',
     base_url: '',
 })
 const users = useList('....')
-const topics = useList('......')
+const topics = useList('/api/alltopic')
 </script>
 
 <template>
