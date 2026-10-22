@@ -20,11 +20,7 @@
             </div>
             <div>
                 <h1>ตำแหน่ง</h1>
-                    <select  v-model="position"  class="border rounded-xl p-3 w-full ">
-                        <option  value="user">user</option>
-                        <option value="boss">boss</option>
-                        <option value="officer">officer</option>
-                    </select>
+                        <input class="border rounded-xl p-3 w-full" v-model="position" placeholder="ตำแหน่ง..." type="text" />
             </div>
             <div>
                 <h1>แผนก</h1>
