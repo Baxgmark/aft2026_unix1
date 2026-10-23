@@ -13,7 +13,8 @@ const handlelogin = async () => {
         const res = await api.post('/api/login', form.value)
         localStorage.setItem('authtoken', res.data.token)
         ok('เข้าสู่ระบบสำเร็จ')
-        router.push('/' + jwtDecode(res.data.token).role)
+        const role =  jwtDecode(res.data.token).role
+        router.push('/' + role)
     } catch (e) {
         err(e)
     }
@@ -37,3 +38,4 @@ const handlelogin = async () => {
         </form>
     </div>
 </template>
+

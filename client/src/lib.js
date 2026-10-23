@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { jwtDecode } from 'jwt-decode'
 import router from './routes'
 
-export const api = axios.create({ timeout: 10000 })
+export const api = axios.create({ baseURL: import.meta.env.VITE_API })
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('authtoken')
@@ -15,7 +15,6 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
     (res) => res,
     (e) => {
-        if (e.response?.status === 401) logout()
         return Promise.reject(e)
     }
 )
@@ -61,11 +60,18 @@ export const officermenu = [
 ]
 
 // ---- ดึงรายการมาใส่ dropdown: const users = useList('/api/users') ----
+// backend คืน array มาคนละคีย์แต่ละ route (rows / message / data) -> หยิบ field ที่เป็น array มาเอง
+export const pickrows = (resdata) => {
+    if (Array.isArray(resdata)) return resdata
+    for (const v of Object.values(resdata || {})) if (Array.isArray(v)) return v
+    return []
+}
+
 export const useList = (url) => {
     const items = ref([])
     onMounted(async () => {
         try {
-            items.value = (await api.get(url)).data.message
+            items.value = pickrows((await api.get(url)).data)
         } catch (e) {
             err(e)
         }
@@ -81,7 +87,7 @@ export const useCrud = (urls, extra = {}) => {
 
     const load = async () => {
         try {
-            rows.value = (await api.get(u.list)).data.message
+            rows.value = pickrows((await api.get(u.list)).data)
         } catch (e) {
             err(e)
         }
