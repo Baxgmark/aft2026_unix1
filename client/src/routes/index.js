@@ -22,6 +22,8 @@ const router = createRouter({
         { path: '/officer/role', name: 'role', component: () => import('../pages/officer/RoleView.vue'), meta: { role: 'officer' } },
         { path: '/officer/time', name: 'time', component: () => import('../pages/officer/TimeView.vue'), meta: { role: 'officer' } },
         { path: '/officer/report', name: 'report', component: () => import('../pages/officer/ReportView.vue'), meta: { role: 'officer' } },
+         { path: '/officer/creatuser', name: 'creatuser', component: () => import('../pages/officer/creatuser.vue'), meta: { role: 'officer' } },
+         { path: '/officer/chagpass/:id', name: 'chagpass', component: () => import('../pages/officer/chagpass.vue'), meta: { role: 'officer' } },
     ],
 })
 

@@ -2,12 +2,15 @@
 import Layout from '../../components/Layout.vue'
 import { useCrud, useList, officermenu, YEAR } from '../../lib'
 
-const { rows, form, add, edit, del } = useCrud('/api/bind-topic', {
+const { rows, form, add, edit, del } = useCrud({
+    list: '/api/allbindtopic',
+    add: '/api/bind-topic',
+    edit: '/api/editbindtopic',
+    del: '/api/delbindtopic',
+}, {
     eyal_year: YEAR,
-    self_score: '',
-    base_url: '',
 })
-const users = useList('....')
+const users = useList('/api/getuser')
 const topics = useList('/api/alltopic')
 </script>
 
@@ -35,14 +38,13 @@ const topics = useList('/api/alltopic')
         <div class="card">
             <h2 class="font-bold mb-2">รายการทั้งหมด</h2>
 
-            <div v-for="r in rows" :key="r.id" class="grid md:grid-cols-4 gap-3 items-end border-t border-gray-200 py-3">
+            <div v-for="r in rows" :key="r.id" class="grid md:grid-cols-3 gap-3 items-end border-t border-gray-200 py-3">
                 <select class="inp" v-model="r.user_id">
                     <option v-for="u in users" :key="u.id" :value="u.id">{{ u.firstname }} {{ u.lastname }}</option>
                 </select>
                 <select class="inp" v-model="r.topic_id">
                     <option v-for="t in topics" :key="t.id" :value="t.id">{{ t.name }}</option>
                 </select>
-                <p class="label">คะแนนที่ประเมินตนเอง: {{ r.self_score || 'ยังไม่ได้ทำ' }}</p>
                 <div class="flex gap-2">
                     <button class="btn-gray flex-1" @click="edit(r)">แก้ไข</button>
                     <button class="btn-red flex-1" @click="del(r)">ลบ</button>

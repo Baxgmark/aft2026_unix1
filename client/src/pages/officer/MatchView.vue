@@ -3,15 +3,11 @@ import Layout from '../../components/Layout.vue'
 import { useCrud, useList, officermenu, YEAR } from '../../lib'
 
 
-const { rows, form, add, edit, del } = useCrud('/api/bossanswer', {
+const { rows, form, add, edit, del } = useCrud('/api/bind-boss', {
     eyal_year: YEAR,
-    score: '',
-    reviews: '',
-    sign: '',
 })
-const users = useList('....')
-const bosses = useList('.....')
-const topics = useList('.....')
+const users = useList('/api/getuser')
+const bosses = useList('/api/getboss')
 </script>
 
 <template>
@@ -24,12 +20,6 @@ const topics = useList('.....')
                 <p class="label">ชื่อผู้รับการประเมิน</p>
                 <select class="inp" v-model="form.user_id">
                     <option v-for="u in users" :key="u.id" :value="u.id">{{ u.firstname }} {{ u.lastname }}</option>
-                </select>
-            </div>
-            <div>
-                <p class="label">ชื่อหัวข้อ</p>
-                <select class="inp" v-model="form.topic_id">
-                    <option v-for="t in topics" :key="t.id" :value="t.id">{{ t.name }}</option>
                 </select>
             </div>
             <div>
@@ -48,13 +38,9 @@ const topics = useList('.....')
                 <select class="inp" v-model="r.user_id">
                     <option v-for="u in users" :key="u.id" :value="u.id">{{ u.firstname }} {{ u.lastname }}</option>
                 </select>
-                <select class="inp" v-model="r.topic_id">
-                    <option v-for="t in topics" :key="t.id" :value="t.id">{{ t.name }}</option>
-                </select>
                 <select class="inp" v-model="r.boss_id">
                     <option v-for="b in bosses" :key="b.id" :value="b.id">{{ b.firstname }} {{ b.lastname }}</option>
                 </select>
-                <p class="label">คะแนนกรรมการ: {{ r.score || 'ยังไม่ได้ให้' }}</p>
                 <div class="flex gap-2">
                     <button class="btn-gray flex-1" @click="edit(r)">แก้ไข</button>
                     <button class="btn-red flex-1" @click="del(r)">ลบ</button>

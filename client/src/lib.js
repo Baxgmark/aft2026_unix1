@@ -7,6 +7,11 @@ import router from './routes'
 export const api = axios.create({ baseURL: import.meta.env.VITE_API })
 
 api.interceptors.request.use((config) => {
+    // url ที่ยังไม่ได้ตั้ง (ว่าง หรือเป็นจุด ๆ) -> ยกเลิกทิ้ง ไม่ยิงออกไป จะได้ไม่มี error ใน network
+    if (!config.url || !config.url.includes('api/')) {
+        throw new axios.CanceledError('ยังไม่ได้ตั้ง url')
+    }
+
     const token = localStorage.getItem('authtoken')
     if (token) config.headers.Authorization = `Bearer ${token}`
     return config
@@ -23,13 +28,18 @@ api.interceptors.response.use(
 export const ok = (title) => Swal.fire({ icon: 'success', title, timer: 1500, showConfirmButton: false })
 export const warn = (title) => Swal.fire({ icon: 'warning', title })
 // ถ้า backend ไม่ได้ส่ง message มา ให้โชว์ method + url + status จะได้รู้ว่าพังตรงไหน
-export const err = (e) =>
+export const err = (e) => {
+    if (axios.isCancel(e)) return // request ที่เรายกเลิกเอง ไม่ต้องเด้งบอกผู้ใช้
+    const m = e.response?.data?.message
     Swal.fire({
         icon: 'error',
         title: 'เกิดข้อผิดพลาด',
-        text: e.response?.data?.message ||
+        // express-validator ส่ง message มาเป็น object { errors: [...] } ต้องดึง msg ออกมาเอง
+        text: m?.errors?.map((x) => x.msg).join('\n') ||
+            (typeof m === 'string' ? m : '') ||
             `${e.config?.method?.toUpperCase() || ''} ${e.config?.url || ''} → ${e.response?.status || e.message}`,
     })
+}
 export const ask = async (title) =>
     (await Swal.fire({ icon: 'question', title, showCancelButton: true, confirmButtonText: 'ตกลง', cancelButtonText: 'ยกเลิก' })).isConfirmed
 
@@ -57,6 +67,7 @@ export const officermenu = [
     { to: '/officer/role', label: 'สิทธิ์ผู้ใช้งาน' },
     { to: '/officer/time', label: 'วันเปิดประเมิน' },
     { to: '/officer/report', label: 'ตารางสรุป' },
+    { to: '/officer/creatuser', label: 'สร้างบัญชีผู้ใช้' },
 ]
 
 // ---- ดึงรายการมาใส่ dropdown: const users = useList('/api/users') ----
@@ -86,6 +97,7 @@ export const useCrud = (urls, extra = {}) => {
     const form = ref({})
 
     const load = async () => {
+        if (!u.list) return
         try {
             rows.value = pickrows((await api.get(u.list)).data)
         } catch (e) {
@@ -94,6 +106,7 @@ export const useCrud = (urls, extra = {}) => {
     }
 
     const add = async () => {
+        if (!u.add) return warn('หน้านี้ยังไม่ได้ตั้ง url สำหรับเพิ่มข้อมูล')
         try {
             await api.post(u.add, { ...extra, ...form.value })
             ok('เพิ่มข้อมูลสำเร็จ')
@@ -125,6 +138,6 @@ export const useCrud = (urls, extra = {}) => {
         }
     }
 
-    onMounted(load)
+    if (u.list) onMounted(load)
     return { rows, form, load, add, edit, del }
 }

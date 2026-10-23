@@ -4,18 +4,17 @@ import Layout from '../components/Layout.vue'
 import ScoreInput from '../components/ScoreInput.vue'
 import { api, ok, err, ask, YEAR } from '../lib'
 
-const rows = ref([]) // boss_answers ที่กรรมการคนนี้ต้องประเมิน + ข้อมูล topic
+const rows = ref([])
 
 const getdata = async () => {
     try {
-        rows.value = (await api.get('.....')).data.message
+        rows.value = (await api.get('/api/userinreview')).data.message
     } catch (e) {
         err(e)
     }
 }
 onMounted(getdata)
 
-// บันทึกเฉพาะคอลัมน์ที่อยู่ในตาราง boss_answers จริงๆ
 const submit = async () => {
     if (!(await ask('ยืนยันบันทึกคะแนนทั้งหมด?'))) return
     try {
