@@ -16,22 +16,28 @@ const getdata = async () => {
 onMounted(getdata)
 
 const add = async () => {
-    if (!form.value.time1 || !form.value.time2) return warn('กรุณาเลือกทั้งวันเริ่มและวันปิด')
-    if (form.value.time1 >= form.value.time2) return warn('วันเริ่มต้องมาก่อนวันปิด')
+    if (!form.value.time1 || !form.value.time2){
+        alert('ไก่')
+        return
+    }
+    if (form.value.time1 >= form.value.time2){
+        alert('กาก')
+        return
+    }
     try {
         await api.post('/api/conftime', form.value)
-        ok('เพิ่มช่วงเวลาสำเร็จ')
+        alert('เรียบร้อย')
         form.value = { time1: '', time2: '' }
         getdata()
     } catch (e) {
-        err(e)
+        alert(e)
     }
 }
 
 const edit = async (r) => {
     try{
         await api.edit('/api/edittime' , { params: {id: r.id} })
-        ok('แก้ไขสำเร็จ')
+        alert('แก้ไขสำเร็จ')
         getdata()
     } catch (e){
         err(e)
@@ -39,7 +45,10 @@ const edit = async (r) => {
 }
 
 const del = async (r) => {
-    if (!(await ask('ยืนยันการลบช่วงเวลานี้?'))) return
+    if (!confirm('ยืนยันการลบไหม')){
+        alert('ลบสำเร็จ')
+        return;
+    }
     try {
         await api.delete('....', { params: { id: r.id } })
         ok('ลบสำเร็จ')

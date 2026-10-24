@@ -2,13 +2,16 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { jwtDecode } from 'jwt-decode'
-import { api, ok, err, warn } from '../lib'
+import { api } from '../lib'
 
 const router = useRouter()
 const form = ref({ username: '', password: '' })
 
 const handlelogin = async () => {
-    if (!form.value.username || !form.value.password) return warn('กรุณากรอกข้อมูลให้ครบถ้วน')
+    if (!form.value.username || !form.value.password){
+        alert('กรุณากรอกข้อมูลให้ครบถ้วน')
+        return;
+    }
     try {
         const res = await api.post('/api/login', form.value)
         localStorage.setItem('authtoken', res.data.token)
@@ -19,6 +22,7 @@ const handlelogin = async () => {
         err(e)
     }
 }
+
 </script>
 
 <template>

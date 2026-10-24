@@ -27,7 +27,6 @@ const router = createRouter({
     ],
 })
 
-// อ่าน role จาก token แบบกัน error: ถ้า token เสีย/ไม่มี ให้ลบทิ้งแล้วคืน null
 const getrole = () => {
     const token = localStorage.getItem('authtoken')
     if (!token) return null

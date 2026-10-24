@@ -36,7 +36,7 @@ const submit = async () => {
 
         <form class="card flex flex-col gap-4" @submit.prevent="submit()">
             <div v-for="r in rows" :key="r.id" class="border-t border-gray-200 pt-3 flex flex-col gap-2">
-                <p class="font-bold">{{ r.username }} — {{ r.name }} <span class="label">(น้ำหนัก {{ r.weight }})</span></p>
+                <p class="font-bold">{{ r.user_id }} — {{ r.name }} <span class="label">(น้ำหนัก {{ r.weight }})</span></p>
                 <p class="label">{{ r.detail }}</p>
 
                 <div class="grid md:grid-cols-3 gap-3 items-end">

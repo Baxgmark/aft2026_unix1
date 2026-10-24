@@ -5,7 +5,6 @@ import { api, ok, err, warn } from '../lib'
 
 const router = useRouter()
 
-// key = ชื่อฟิลด์ที่ส่งไป backend, value = ป้ายที่แสดงบนหน้า
 const fields = {
     username: 'ชื่อผู้ใช้งาน',
     firstname: 'ชื่อจริง',
@@ -18,7 +17,6 @@ const fields = {
 const form = ref({})
 
 const handleregister = async () => {
-    if (Object.keys(fields).some((k) => !form.value[k])) return warn('กรุณากรอกข้อมูลให้ครบถ้วน')
     try {
         await api.post('/api/register', form.value)
         ok('สมัครสำเร็จ')

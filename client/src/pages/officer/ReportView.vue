@@ -16,14 +16,12 @@ const getdata = async () => {
 }
 onMounted(getdata)
 
-// 8.5 คลิกดูรายละเอียดว่ามีใครบ้าง
 const detail = () =>
     Swal.fire({
         title: 'ผู้รับการประเมินที่ยังไม่มีผู้ประเมิน',
         html: report.value.noassign.map((u) => `${u.firstname} ${u.lastname} (${u.department})`).join('<br/>') || 'ไม่มี',
     })
 
-// 8.4 สำรอง / กู้คืนข้อมูลเป็น JSON
 const backup = async () => {
     try {
         const res = await api.get('/api/backup')
