@@ -8,4 +8,7 @@ const db = mysql.createPool({
     database:'aft_70'
 })
 
+const status = db.getConnection()
+console.log(status)
+
 module.exports = db
