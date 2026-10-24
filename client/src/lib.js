@@ -5,69 +5,15 @@ import router from './routes'
 
 export const api = axios.create({ baseURL: import.meta.env.VITE_API })
 
-// api.interceptors.request.use((config) => {
-//     if (!config.url || !config.url.includes('/api/')) {
-//         throw new axios.CanceledError('ยังไม่ได้ตั้ง url')
-//     }
-
-//     const token = localStorage.getItem('authtoken')
-//     if (token)
-//         config.headers.Authorization = `Bearer ${token}`
-//     return config
-// })
-
-// api.interceptors.response.use(
-//     (res) => res,
-//     (e) => {
-//         return Promise.reject(e)
-//     }
-// )
-
-// api.interceptors.request.use((config)=> {
-//     if (!config.url || !config.url.includes('/api/')){
-//         throw new axios.CanceledError('ยงไม่ได้ตั้ง url')
-//     }
-
-//     const token = localStorage.getItem('authtoken')
-//     if (token)
-//         config.headers.Authorization = `Bearer ${token}`
-//  return  config;
-// })
-
-// api.interceptors.response.use(
-//     (res) => res,
-//     (e) => {
-//         return Promise.reject(e)
-//     }
-// )
-
-// axios.interceptors.request.use((config)=> {
-//     if (!config.url || !config.url.includes('/api/')){
-//         throw new axios.CanceledError('ยังไ่ได้ติดตั้ง url')
-//     }
-
-//     const token = localStorage.getItem('authtoken')
-//     if (token)
-//         config.headers.Authorization = `Bearer ${token}`
-//     return config;
-// })
-
-// api.interceptors.response.use(
-//     (res) => res,
-//     (e) => {
-//         return Promise.reject(e)
-//     }
-// )
-
-axios.interceptors.request.use((config) => {
-    if (!config.url || !config.url.includes('/api/')){
+api.interceptors.request.use((config) => {
+    if (!config.url || !config.url.includes('/api/')) {
         throw new axios.CanceledError('ยังไม่ได้ตั้ง url')
     }
 
     const token = localStorage.getItem('authtoken')
     if (token)
         config.headers.Authorization = `Bearer ${token}`
-        return;
+    return config
 })
 
 api.interceptors.response.use(
@@ -77,95 +23,29 @@ api.interceptors.response.use(
     }
 )
 
-// axios.interceptors.request.use((config) => {
-//     if (!config.url || !config.url.includes('/api/')){
-//         throw new axios.CanceledError('ยังไม่ได้ติดตั้ง url')
-//     }
+api.interceptors.response.use(
+    (res) => res,
+    (e) => {
+        return Promise.reject(e)
+    }
+)
 
-//     const token = localStorage.getItem('authtoken')
-//     if (token)
-//         config.headers.Authorization = `Bearer ${token}`
-//     return config;
-// })
+export const me = () => {
+    const token = localStorage.getItem5('authtoken')
+    return token ? jwtDecode(token) : {}
+}
 
-// api.interceptors.response.use(
-//     (res) => res,
-//     (e) => {
-//         return Promise.reject(e)
-//     }
-// )
+export const logout = () => {
+    localStorage.removeItem('authtoken')
+    router.push('/login')
+}
 
-// export const me = () => {
-//     const token = localStorage.getItem5('authtoken')
-//     return token ? jwtDecode(token) : {}
-// }
+export const thaidate = (d) => 
+    d ? new Date(d).toLocaleString('th-TH', { dateStyle: 'long', timeStyle: 'short'}) : '-'
+export const thaiday = (d) => d ? new Date(d).toLocaleString('th-TH', {dateStyle: 'long'}) : '-'
 
-// export const logout = () => {
-//     localStorage.removeItem('authtoken')
-//     router.push('/login')
-// }
+export const YEAR = new Date().getFullYear()
 
-// export const thaidate = (d) => 
-//     d ? new Date(d).toLocaleString('th-TH', { dateStyle: 'long', timeStyle: 'short'}) : '-'
-// export const thaiday = (d) => d ? new Date(d).toLocaleString('th-TH', {dateStyle: 'long'}) : '-'
-
-// export const YEAR = new Date().getFullYear()
-
-// export const thaidate = (d) => 
-//     d ? new Date(d).toLocaleString('th-TH', { dateStyle: 'long', timeStyle: 'short'}) : '-'
-// export const thaiday = (d) => d ? new Date(d).toLocaleString('th-TH', { dateStyle: 'long'}) : '-'
-
-// export const YEAR = new Date().getFullYear()
-
-
-// axios.interceptors.request.use((config) => {
-//     if (!config.url || !config.url.includes('/api/')){
-//         throw new axios.CanceledError('ยังไม่ได้ตั้ง url')
-//     }
-
-//     const token = localStorage.getItem('authtoken')
-//     if (token)
-//         config.headers.Authorization = `Bearer ${token}`
-//     return config;
-// })
-
-// api.interceptors.response.use(
-//     (res) => res,
-//     (e) => {
-//         return Promise.reject(e)
-//     }
-// )
-
-// export const me = () => {
-//     const token = localStorage.getItem('authtoken')
-//     return token ? jwtDecode(token) : {}
-// }
-
-// export const logout = ( => {
-//     localStorage.removeItem('authtoken')
-//     router.push('/login')
-// })
-
-// export const me = () => {
-//     const token = localStorage.getItem('authtoken')
-//     return token ? jwtDecode(token) : {}
-// }
-// export const logout = () => {
-//     localStorage.removeItem('authtoken')
-//     router.push('/login')
-// }
-
-// export const thaidate = (d) => 
-//     d ? new date(d).toLocaleString('th-TH', { dateStyle: 'long', datetime: ''}) : '-'
-// export const thaidat = (d) => d ? new Date(d).toLocaleString('th-TH', { dateStyle: 'long'}) : '-'
-
-// export const YEAR = new Date().getFullYear(())
-
-// export const thaidate = (d) =>
-//     d ? new Date(d).toLocaleString('th-TH', { dateStyle: 'long', timeStyle: 'short' }) : '-'
-// export const thaiday = (d) => (d ? new Date(d).toLocaleDateString('th-TH', { dateStyle: 'long' }) : '-')
-
-// export const YEAR = new Date().getFullYear()
 
 export const officermenu = [
     { to: '/officer', label: 'หัวข้อประเมิน' },
